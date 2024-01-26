@@ -57,6 +57,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Level11";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Level11_FormClosed);
+            this.Load += new System.EventHandler(this.Level11_LoadAsync);
             ((System.ComponentModel.ISupportInitialize)(this.webView)).EndInit();
             this.ResumeLayout(false);
 

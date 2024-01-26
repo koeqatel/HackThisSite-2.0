@@ -109,6 +109,7 @@
             this.level8Button.Name = "level8Button";
             this.level8Button.Size = new System.Drawing.Size(180, 70);
             this.level8Button.TabIndex = 6;
+            this.level8Button.Text = "Code an IRC bot (Skipped)";
             this.level8Button.UseVisualStyleBackColor = true;
             // 
             // level7Button
