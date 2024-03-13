@@ -155,7 +155,9 @@
             this.level4Button.Name = "level4Button";
             this.level4Button.Size = new System.Drawing.Size(180, 70);
             this.level4Button.TabIndex = 11;
+            this.level4Button.Text = "Parse an XML file";
             this.level4Button.UseVisualStyleBackColor = true;
+            this.level4Button.Click += new System.EventHandler(this.level4Button_Click);
             // 
             // MainForm
             // 

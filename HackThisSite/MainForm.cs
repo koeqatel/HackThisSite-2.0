@@ -40,5 +40,13 @@ namespace HackThisSite
 
             this.Hide();
         }
+
+        private void level4Button_Click(object sender, EventArgs e)
+        {
+            Level4 level4 = new Level4();
+            level4.Show();
+
+            this.Hide();
+        }
     }
 }
