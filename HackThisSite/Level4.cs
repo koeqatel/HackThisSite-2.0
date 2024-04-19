@@ -11,11 +11,17 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
 using ICSharpCode.SharpZipLib.BZip2;
+using System.Collections;
+using static System.Windows.Forms.AxHost;
 
 namespace HackThisSite
 {
     public partial class Level4 : Form
     {
+        private int rotation = 0;
+        private string pickedColor = "";
+        private string filePath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\Downloads\\plotMe.xml.bz2";
+
         public Level4()
         {
             InitializeComponent();
@@ -23,6 +29,7 @@ namespace HackThisSite
 
         private void Level4_FormClosed(object sender, FormClosedEventArgs e)
         {
+            File.Delete(filePath);
             Application.Exit();
         }
 
@@ -34,9 +41,6 @@ namespace HackThisSite
 
         private string unZipFile()
         {
-            //TODO: Unzip the file
-            string filePath = "C:\\Users\\Koeqatel\\Downloads\\plotMe.xml.bz2";
-
             // Read the compressed file directly
             using (FileStream fs = new FileStream(filePath, FileMode.Open))
             {
@@ -62,30 +66,31 @@ namespace HackThisSite
                 string sUncompressed = Encoding.ASCII.GetString(msUncompressed.ToArray());
 
                 // Output the decompressed data
-                File.Delete(filePath);
                 return sUncompressed;
             }
         }
-        private void Level4_Load(object sender, EventArgs e)
-        {
-            Bitmap drawingBitmap = new Bitmap(outputImage.Width, outputImage.Height);
-            Graphics graphicsOutput = Graphics.FromImage(drawingBitmap);
-            outputImage.Image = drawingBitmap;
 
-            Bitmap drawing2Bitmap = new Bitmap(outputImage2.Width, outputImage2.Height);
-            Graphics graphics2Output = Graphics.FromImage(drawing2Bitmap);
-            outputImage2.Image = drawing2Bitmap;
+        private void DrawLetters(Dictionary<string, Graphics> graphicsOutput, string color, Bitmap drawingBitmap)
+        {
+            graphicsOutput[color] = Graphics.FromImage(drawingBitmap);
+
+            outputImage.Image = drawingBitmap;
 
             XmlDocument xmlDoc = new XmlDocument();
             xmlDoc.LoadXml(unZipFile());
             XmlElement root = xmlDoc.DocumentElement;
 
+            string usedColor = "";
+
             XmlNodeList lines = root.SelectNodes("Line");
             foreach (XmlNode line in lines)
             {
-                string color = "white";
+                string colorFromXml = "white";
                 if (line.SelectNodes("Color")[0] != null)
-                    color = line.SelectNodes("Color")[0].InnerText;
+                    colorFromXml = line.SelectNodes("Color")[0].InnerText;
+
+                if (colorFromXml != color)
+                    continue;
 
                 Pen pen = new Pen(Color.FromName(color));
                 float XStart = float.Parse(line.SelectNodes("XStart")[0].InnerText);
@@ -93,18 +98,20 @@ namespace HackThisSite
                 float XEnd = float.Parse(line.SelectNodes("XEnd")[0].InnerText);
                 float YEnd = float.Parse(line.SelectNodes("YEnd")[0].InnerText);
 
-                if (color == "blue" || color == "green" || color == "red")
-                    graphicsOutput.DrawLine(pen, XStart, YStart, XEnd, YEnd);
-                else if (color == "yellow" || color == "white")
-                    graphics2Output.DrawLine(pen, XStart, YStart, XEnd, YEnd);
+                graphicsOutput[color].DrawLine(pen, XStart, YStart, XEnd, YEnd);
+                usedColor = colorFromXml;
+
             }
 
             XmlNodeList arcs = root.SelectNodes("Arc");
             foreach (XmlNode arc in arcs)
             {
-                string color = "white";
+                string colorFromXml = "white";
                 if (arc.SelectNodes("Color")[0] != null)
-                    color = arc.SelectNodes("Color")[0].InnerText;
+                    colorFromXml = arc.SelectNodes("Color")[0].InnerText;
+
+                if (colorFromXml != color)
+                    continue;
 
                 Pen pen = new Pen(Color.FromName(color));
                 float YCenter = float.Parse(arc.SelectNodes("YCenter")[0].InnerText);
@@ -113,14 +120,140 @@ namespace HackThisSite
                 float XCenter = float.Parse(arc.SelectNodes("XCenter")[0].InnerText);
                 float Radius = float.Parse(arc.SelectNodes("Radius")[0].InnerText);
 
-                if (color == "blue" || color == "green" || color == "red")
-                    graphicsOutput.DrawArc(pen, XCenter - Radius, YCenter - Radius, Radius * 2, Radius * 2, ArcStart, ArcExtend);
-                else if (color == "yellow" || color == "white")
-                    graphics2Output.DrawArc(pen, XCenter - Radius, YCenter - Radius, Radius * 2, Radius * 2, ArcStart, ArcExtend);
+                graphicsOutput[color].DrawArc(pen, XCenter - Radius, YCenter - Radius, Radius * 2, Radius * 2, ArcStart, ArcExtend);
+                usedColor = colorFromXml;
+            }
+
+            if (usedColor == color)
+            {
+                graphicsOutput[color].TranslateTransform((float)drawingBitmap.Width / 2, (float)drawingBitmap.Height / 2);
+                graphicsOutput[color].RotateTransform(rotation);
+                graphicsOutput[color].TranslateTransform(-(float)drawingBitmap.Width / 2, -(float)drawingBitmap.Height / 2);
+                graphicsOutput[color].DrawImage(drawingBitmap, new System.Drawing.Point(0, 0));
+            }
+        }
+
+        private void Level4_Load(object sender, EventArgs e)
+        {
+            Bitmap drawingBitmap = new Bitmap(outputImage.Width, outputImage.Height);
+            var graphicsOutput = new Dictionary<string, Graphics>();
+
+            List<string> colors = new List<string>();
+            colors.Add("blue");
+            colors.Add("green");
+            colors.Add("red");
+            colors.Add("yellow");
+            colors.Add("white");
+
+            foreach (string color in colors)
+            {
+                DrawLetters(graphicsOutput, color, drawingBitmap);
             }
 
             outputImage.Invalidate();
-            outputImage2.Invalidate();
+        }
+
+        private void buttonBlue_Click(object sender, EventArgs e)
+        {
+            pickedColor = "blue";
+            Bitmap drawingBitmap = new Bitmap(outputImage.Width, outputImage.Height);
+            var graphicsOutput = new Dictionary<string, Graphics>();
+            DrawLetters(graphicsOutput, "blue", drawingBitmap);
+            outputImage.Invalidate();
+        }
+
+        private void buttonGreen_Click(object sender, EventArgs e)
+        {
+            pickedColor = "green";
+            Bitmap drawingBitmap = new Bitmap(outputImage.Width, outputImage.Height);
+            var graphicsOutput = new Dictionary<string, Graphics>();
+            DrawLetters(graphicsOutput, "green", drawingBitmap);
+            outputImage.Invalidate();
+        }
+
+        private void buttonRed_Click(object sender, EventArgs e)
+        {
+            pickedColor = "red";
+            Bitmap drawingBitmap = new Bitmap(outputImage.Width, outputImage.Height);
+            var graphicsOutput = new Dictionary<string, Graphics>();
+            DrawLetters(graphicsOutput, "red", drawingBitmap);
+            outputImage.Invalidate();
+        }
+
+        private void buttonYellow_Click(object sender, EventArgs e)
+        {
+            pickedColor = "yellow";
+            Bitmap drawingBitmap = new Bitmap(outputImage.Width, outputImage.Height);
+            var graphicsOutput = new Dictionary<string, Graphics>();
+            DrawLetters(graphicsOutput, "yellow", drawingBitmap);
+            outputImage.Invalidate();
+        }
+
+        private void buttonWhite_Click(object sender, EventArgs e)
+        {
+            pickedColor = "white";
+            Bitmap drawingBitmap = new Bitmap(outputImage.Width, outputImage.Height);
+            var graphicsOutput = new Dictionary<string, Graphics>();
+            DrawLetters(graphicsOutput, "white", drawingBitmap);
+            outputImage.Invalidate();
+        }
+
+        private void rotateLeft_Click(object sender, EventArgs e)
+        {
+            rotation -= 15;
+
+            Bitmap drawingBitmap = new Bitmap(outputImage.Width, outputImage.Height);
+            var graphicsOutput = new Dictionary<string, Graphics>();
+
+            List<string> colors = new List<string>();
+            colors.Add("blue");
+            colors.Add("green");
+            colors.Add("red");
+            colors.Add("yellow");
+            colors.Add("white");
+
+            if (pickedColor == "")
+            {
+                foreach (string color in colors)
+                {
+                    DrawLetters(graphicsOutput, color, drawingBitmap);
+                }
+            }
+            else
+            {
+                DrawLetters(graphicsOutput, pickedColor, drawingBitmap);
+            }
+
+            outputImage.Invalidate();
+        }
+
+        private void rotateRight_Click(object sender, EventArgs e)
+        {
+            rotation += 15;
+
+            Bitmap drawingBitmap = new Bitmap(outputImage.Width, outputImage.Height);
+            var graphicsOutput = new Dictionary<string, Graphics>();
+
+            List<string> colors = new List<string>();
+            colors.Add("blue");
+            colors.Add("green");
+            colors.Add("red");
+            colors.Add("yellow");
+            colors.Add("white");
+
+            if (pickedColor == "")
+            {
+                foreach (string color in colors)
+                {
+                    DrawLetters(graphicsOutput, color, drawingBitmap);
+                }
+            }
+            else
+            {
+                DrawLetters(graphicsOutput, pickedColor, drawingBitmap);
+            }
+
+            outputImage.Invalidate();
         }
     }
 }
