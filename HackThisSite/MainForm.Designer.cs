@@ -44,10 +44,9 @@
             // 
             // level1Button
             // 
-            this.level1Button.Location = new System.Drawing.Point(17, 16);
-            this.level1Button.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.level1Button.Location = new System.Drawing.Point(13, 13);
             this.level1Button.Name = "level1Button";
-            this.level1Button.Size = new System.Drawing.Size(180, 70);
+            this.level1Button.Size = new System.Drawing.Size(135, 57);
             this.level1Button.TabIndex = 0;
             this.level1Button.Text = "Unscramble the words";
             this.level1Button.UseVisualStyleBackColor = true;
@@ -55,10 +54,9 @@
             // 
             // level2Button
             // 
-            this.level2Button.Location = new System.Drawing.Point(205, 16);
-            this.level2Button.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.level2Button.Location = new System.Drawing.Point(154, 13);
             this.level2Button.Name = "level2Button";
-            this.level2Button.Size = new System.Drawing.Size(180, 70);
+            this.level2Button.Size = new System.Drawing.Size(135, 57);
             this.level2Button.TabIndex = 1;
             this.level2Button.Text = "Analyze the picture and find the ascii code";
             this.level2Button.UseVisualStyleBackColor = true;
@@ -66,19 +64,17 @@
             // 
             // level3Button
             // 
-            this.level3Button.Location = new System.Drawing.Point(393, 16);
-            this.level3Button.Margin = new System.Windows.Forms.Padding(4);
+            this.level3Button.Location = new System.Drawing.Point(295, 13);
             this.level3Button.Name = "level3Button";
-            this.level3Button.Size = new System.Drawing.Size(180, 70);
+            this.level3Button.Size = new System.Drawing.Size(135, 57);
             this.level3Button.TabIndex = 2;
             this.level3Button.UseVisualStyleBackColor = true;
             // 
             // level11Button
             // 
-            this.level11Button.Location = new System.Drawing.Point(393, 172);
-            this.level11Button.Margin = new System.Windows.Forms.Padding(4);
+            this.level11Button.Location = new System.Drawing.Point(295, 140);
             this.level11Button.Name = "level11Button";
-            this.level11Button.Size = new System.Drawing.Size(180, 70);
+            this.level11Button.Size = new System.Drawing.Size(135, 57);
             this.level11Button.TabIndex = 3;
             this.level11Button.Text = "Reverse Ascii Shift";
             this.level11Button.UseVisualStyleBackColor = true;
@@ -86,74 +82,70 @@
             // 
             // leve103Button
             // 
-            this.leve103Button.Location = new System.Drawing.Point(205, 172);
-            this.leve103Button.Margin = new System.Windows.Forms.Padding(4);
+            this.leve103Button.Location = new System.Drawing.Point(154, 140);
             this.leve103Button.Name = "leve103Button";
-            this.leve103Button.Size = new System.Drawing.Size(180, 70);
+            this.leve103Button.Size = new System.Drawing.Size(135, 57);
             this.leve103Button.TabIndex = 4;
             this.leve103Button.UseVisualStyleBackColor = true;
             // 
             // level9Button
             // 
-            this.level9Button.Location = new System.Drawing.Point(17, 172);
-            this.level9Button.Margin = new System.Windows.Forms.Padding(4);
+            this.level9Button.Location = new System.Drawing.Point(13, 140);
             this.level9Button.Name = "level9Button";
-            this.level9Button.Size = new System.Drawing.Size(180, 70);
+            this.level9Button.Size = new System.Drawing.Size(135, 57);
             this.level9Button.TabIndex = 5;
             this.level9Button.UseVisualStyleBackColor = true;
             // 
             // level8Button
             // 
-            this.level8Button.Location = new System.Drawing.Point(581, 94);
-            this.level8Button.Margin = new System.Windows.Forms.Padding(4);
+            this.level8Button.Location = new System.Drawing.Point(436, 76);
             this.level8Button.Name = "level8Button";
-            this.level8Button.Size = new System.Drawing.Size(180, 70);
+            this.level8Button.Size = new System.Drawing.Size(135, 57);
             this.level8Button.TabIndex = 6;
             this.level8Button.Text = "Code an IRC bot (Skipped)";
             this.level8Button.UseVisualStyleBackColor = true;
             // 
             // level7Button
             // 
-            this.level7Button.Location = new System.Drawing.Point(393, 94);
-            this.level7Button.Margin = new System.Windows.Forms.Padding(4);
+            this.level7Button.Location = new System.Drawing.Point(295, 76);
             this.level7Button.Name = "level7Button";
-            this.level7Button.Size = new System.Drawing.Size(180, 70);
+            this.level7Button.Size = new System.Drawing.Size(135, 57);
             this.level7Button.TabIndex = 7;
             this.level7Button.UseVisualStyleBackColor = true;
             // 
             // level6Button
             // 
-            this.level6Button.Location = new System.Drawing.Point(205, 94);
-            this.level6Button.Margin = new System.Windows.Forms.Padding(4);
+            this.level6Button.Location = new System.Drawing.Point(154, 76);
             this.level6Button.Name = "level6Button";
-            this.level6Button.Size = new System.Drawing.Size(180, 70);
+            this.level6Button.Size = new System.Drawing.Size(135, 57);
             this.level6Button.TabIndex = 8;
+            this.level6Button.Text = "Bypass the image captcha";
             this.level6Button.UseVisualStyleBackColor = true;
+            this.level6Button.Click += new System.EventHandler(this.level6Button_Click);
             // 
             // level5Button
             // 
-            this.level5Button.Location = new System.Drawing.Point(17, 94);
-            this.level5Button.Margin = new System.Windows.Forms.Padding(4);
+            this.level5Button.Location = new System.Drawing.Point(13, 76);
             this.level5Button.Name = "level5Button";
-            this.level5Button.Size = new System.Drawing.Size(180, 70);
+            this.level5Button.Size = new System.Drawing.Size(135, 57);
             this.level5Button.TabIndex = 9;
+            this.level5Button.Text = "Fix a corrupted file (Skipped for now)";
             this.level5Button.UseVisualStyleBackColor = true;
+            this.level5Button.Click += new System.EventHandler(this.level5Button_Click);
             // 
             // level12Button
             // 
-            this.level12Button.Location = new System.Drawing.Point(581, 172);
-            this.level12Button.Margin = new System.Windows.Forms.Padding(4);
+            this.level12Button.Location = new System.Drawing.Point(436, 140);
             this.level12Button.Name = "level12Button";
-            this.level12Button.Size = new System.Drawing.Size(180, 70);
+            this.level12Button.Size = new System.Drawing.Size(135, 57);
             this.level12Button.TabIndex = 10;
             this.level12Button.UseVisualStyleBackColor = true;
             // 
             // level4Button
             // 
-            this.level4Button.Location = new System.Drawing.Point(581, 16);
-            this.level4Button.Margin = new System.Windows.Forms.Padding(4);
+            this.level4Button.Location = new System.Drawing.Point(436, 13);
             this.level4Button.Name = "level4Button";
-            this.level4Button.Size = new System.Drawing.Size(180, 70);
+            this.level4Button.Size = new System.Drawing.Size(135, 57);
             this.level4Button.TabIndex = 11;
             this.level4Button.Text = "Parse an XML file";
             this.level4Button.UseVisualStyleBackColor = true;
@@ -161,9 +153,9 @@
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1067, 554);
+            this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.level4Button);
             this.Controls.Add(this.level12Button);
             this.Controls.Add(this.level5Button);
@@ -176,7 +168,6 @@
             this.Controls.Add(this.level3Button);
             this.Controls.Add(this.level2Button);
             this.Controls.Add(this.level1Button);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "MainForm";

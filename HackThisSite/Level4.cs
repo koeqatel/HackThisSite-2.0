@@ -1,18 +1,11 @@
 ﻿using ICSharpCode.SharpZipLib.BZip2;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
-using ICSharpCode.SharpZipLib.BZip2;
-using System.Collections;
-using static System.Windows.Forms.AxHost;
 
 namespace HackThisSite
 {
@@ -31,12 +24,6 @@ namespace HackThisSite
         {
             File.Delete(filePath);
             Application.Exit();
-        }
-
-        private string getFileName()
-        {
-            //TODO: get file name from the downloads folder
-            return "";
         }
 
         private string unZipFile()
